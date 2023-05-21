@@ -8,13 +8,13 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 5f;
     float hInput = 0;
     Rigidbody2D player;
+    private PlatformGenerator platformPooler;
 
     // Start is called before the first frame update
     void Start()
     {
+        platformPooler = FindAnyObjectByType<PlatformGenerator>();
         player = GetComponent<Rigidbody2D>();
-        /*GameObject buttonLeft = GameObject.Find("Button Left");
-        GameObject buttonRight = GameObject.Find("Button Right");*/
     }
 
     // Update is called once per frame
@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     void Move(float horizontalInput)
     {
         Vector2 moveVel = player.velocity;
-        moveVel.x = horizontalInput * moveSpeed;
+        moveVel.x = horizontalInput * moveSpeed * Time.deltaTime;
         player.velocity = moveVel;
     }
 
@@ -37,9 +37,14 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Platform") && player.velocity.y <= 0)
+        if (collision.gameObject.CompareTag("Platform") && player.velocity.y <= 1)
         {
             Jump();
+        }
+        if (collision.gameObject.CompareTag("Cracking Platform") && player.velocity.y <= 0.5f)
+        {
+            platformPooler.ReturnPlatformToPool(collision.gameObject);
+            platformPooler.MakeAnotherOne();
         }
     }
 
@@ -48,16 +53,5 @@ public class PlayerController : MonoBehaviour
         GetComponent<Rigidbody2D>().velocity = Vector2.up * jumpForce;
     }
 
-    /*public void MoveLeft()
-    {
-        transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);              
-    }
-    
-    public void MoveRight()
-    {
-        
-        transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
-    }
-    */
     
 }
