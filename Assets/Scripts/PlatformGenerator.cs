@@ -13,8 +13,8 @@ public class PlatformGenerator : MonoBehaviour
 
         for (int i =0; i<10; i++)
         {
-            spawnPos.x = Random.Range(-2f, 2f);
-            spawnPos.y += Random.Range(2f, 4f);
+            spawnPos.x = Random.Range(-3f, 3f);
+            spawnPos.y += Random.Range(1.5f, 3.5f);
 
             Instantiate(platformPrefab, spawnPos, Quaternion.identity);
         }
