@@ -13,8 +13,7 @@ GameObject:
   - component: {fileID: 7016701605668781081}
   - component: {fileID: 418460111548998206}
   - component: {fileID: 3178808368688933623}
-  - component: {fileID: -8035754982559896512}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Cracking Platform
   m_TagString: Cracking Platform
   m_Icon: {fileID: 0}
@@ -98,7 +97,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 1
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -122,10 +121,10 @@ PlatformEffector2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7016701605668781085}
   m_Enabled: 1
-  m_UseColliderMask: 1
+  m_UseColliderMask: 0
   m_ColliderMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1
   m_RotationalOffset: 0
   m_UseOneWay: 1
   m_UseOneWayGrouping: 0
@@ -145,24 +144,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 511522c3f635ffa4cbd1fe6bb0491566, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!50 &-8035754982559896512
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7016701605668781085}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 1
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0

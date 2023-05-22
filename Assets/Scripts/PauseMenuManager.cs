@@ -12,18 +12,20 @@ public class PauseMenuManager : MonoBehaviour
 
     public void PauseGame()
     {
-        Time.timeScale = 0f; 
+        Time.timeScale = 0f;
+        gameObject.SetActive(true);
     }
 
     public void ResumeGame()
     {
         Time.timeScale = 1f;
+        gameObject.SetActive(false);
     }
 
     public void LoadMainMenu()
     {
         Time.timeScale = 1f; 
-        SceneManager.LoadScene("MainMenu"); 
+        SceneManager.LoadScene("Main Menu"); 
     }
 
     public void RestartGame()
