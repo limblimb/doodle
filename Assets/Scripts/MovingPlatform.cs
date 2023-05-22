@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour
 {
-    public float speed = 5f; // Скорость перемещения платформы
+    public float speed = 5f; 
 
     private Vector3 initialPosition;
-    private float leftBoundary; // Левая граница экрана
-    private float rightBoundary; // Правая граница экрана
-    private bool movingRight = true; // Флаг, указывающий направление движения платформы
+    private float leftBoundary; 
+    private float rightBoundary; 
+    private bool movingRight = true; 
 
     void Start()
     {

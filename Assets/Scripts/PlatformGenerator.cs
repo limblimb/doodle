@@ -7,6 +7,8 @@ public class PlatformGenerator : MonoBehaviour
     public List<GameObject> platformPrefabList;
     public List<float> probabilities;
     private float totalProbability;
+    public string DontRepeatTag = "Cracking Platform"; // Объект, который нужно исключить из повторяющегося добавления
+    private GameObject lastObjectAdded; // Последний добавленный объект
 
     int poolSize = 100;
     int poolCounter;
@@ -14,8 +16,6 @@ public class PlatformGenerator : MonoBehaviour
 
     public static float spawnPosY;
     public static PlatformGenerator instance;
-
-    
 
     private void Awake()
     {
@@ -30,13 +30,27 @@ public class PlatformGenerator : MonoBehaviour
         {
             Destroy(gameObject);
         }
-                
+        
+        
         platformPool = new List<GameObject>();
-
+        lastObjectAdded = null;
         // создаем и инициализируем объекты пула
         for (int i = 0; i < poolSize; i++)
         {
-            GameObject platform = Instantiate(SelectItem(), transform);
+            GameObject chosenPlatform = SelectItem();
+            //здесь проверяется, чтобы Cracking Platform не появлялась два раза подряд
+            if (lastObjectAdded != null)
+            {
+                if (lastObjectAdded.CompareTag(chosenPlatform.tag) && lastObjectAdded.CompareTag(DontRepeatTag))
+                {
+                    while (chosenPlatform.tag == lastObjectAdded.tag)
+                    {
+                        chosenPlatform = SelectItem();
+                    }
+                }
+            }
+            lastObjectAdded = chosenPlatform;
+            GameObject platform = Instantiate(chosenPlatform, transform);
             platform.SetActive(false);
             platformPool.Add(platform);
         }
@@ -115,7 +129,7 @@ public class PlatformGenerator : MonoBehaviour
         public void MakeAnotherOne()
     {
         float newSpawnPosX = Random.Range(-3.5f, 3.5f);
-        float newSpawnPosY = Random.Range(spawnPosY + 1.5f, spawnPosY + 3f);
+        float newSpawnPosY = Random.Range(spawnPosY + 1.5f, spawnPosY + 5f);
         spawnPosY = newSpawnPosY;
 
         GameObject platform = GetPlatformFromPool();
