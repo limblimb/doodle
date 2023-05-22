@@ -8,6 +8,7 @@ public class CameraFollow : MonoBehaviour
     public Transform gameOver;
     public float smoothSpeed = 1f;
     private Vector3 offset;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +31,5 @@ public class CameraFollow : MonoBehaviour
             Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
             transform.position = smoothedPosition;
         }
-
     }
 }

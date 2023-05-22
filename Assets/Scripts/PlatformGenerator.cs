@@ -7,10 +7,10 @@ public class PlatformGenerator : MonoBehaviour
     public List<GameObject> platformPrefabList;
     public List<float> probabilities;
     private float totalProbability;
-    public string DontRepeatTag = "Cracking Platform"; // Объект, который нужно исключить из повторяющегося добавления
+    public string DontRepeatTag = "Cracking Platform"; // Тег объекта, который нужно исключить из повторяющегося добавления
     private GameObject lastObjectAdded; // Последний добавленный объект
 
-    int poolSize = 100;
+    int poolSize = 33;
     int poolCounter;
     private List<GameObject> platformPool;
 
@@ -21,7 +21,7 @@ public class PlatformGenerator : MonoBehaviour
     {
         CalculateTotalProbability();
 
-        // экземпляр класса для использования в других
+        
         if (instance == null)
         {
             instance = this;
@@ -30,15 +30,14 @@ public class PlatformGenerator : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        
-        
+                
         platformPool = new List<GameObject>();
         lastObjectAdded = null;
-        // создаем и инициализируем объекты пула
+        // Создание и инициализация объектов пула
         for (int i = 0; i < poolSize; i++)
         {
             GameObject chosenPlatform = SelectItem();
-            //здесь проверяется, чтобы Cracking Platform не появлялась два раза подряд
+            // Здесь проверяется, чтобы Cracking Platform не появлялась два раза подряд
             if (lastObjectAdded != null)
             {
                 if (lastObjectAdded.CompareTag(chosenPlatform.tag) && lastObjectAdded.CompareTag(DontRepeatTag))
@@ -58,7 +57,7 @@ public class PlatformGenerator : MonoBehaviour
 
     void Start()
     {
-        // создание стартовых 10 платформ
+        // Создание стартовых 10 платформ
         Vector2 spawnPos = new Vector2();
         for (int i = 0; i < 10; i++)
         {
@@ -69,13 +68,12 @@ public class PlatformGenerator : MonoBehaviour
             GameObject platform = GetPlatformFromPool();
             platform.transform.position = spawnPos;
             platform.SetActive(true);
-            //Instantiate(platformPrefabList[0], spawnPos, Quaternion.identity);
         }
     }
 
     public GameObject GetPlatformFromPool()
     {
-        // ищем неактивный объект в пуле и возвращаем его
+        // Поиск неактивного объекта в пуле
         for (int i = poolCounter; i < platformPool.Count; i++)
         {
             if (!platformPool[i].activeInHierarchy)
@@ -85,7 +83,7 @@ public class PlatformGenerator : MonoBehaviour
             }
         }
 
-        // если все объекты заняты, создаем новый
+        // Если все объекты заняты, создаем новый
         GameObject newPlatform = Instantiate(SelectItem(), transform);
         platformPool.Add(newPlatform);
         poolCounter++;

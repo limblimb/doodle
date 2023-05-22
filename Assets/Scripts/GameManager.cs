@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,11 +10,19 @@ public class GameManager : MonoBehaviour
     public GameObject pauseMenu;
     public GameObject ui;
     public Transform cameraPos;
+    public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI deadScoreText;
+    private int score;
+    private int startCameraPosY;
     private float screenHeight;
+    
+
 
     // Start is called before the first frame update
     void Start()
     {
+        startCameraPosY = (int)cameraPos.transform.position.y;
+
         gameOverScreen.SetActive(false);
         pauseMenu.SetActive(false);
         screenHeight = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height, 0)).y - Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0)).y;
@@ -23,6 +32,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         MakeGameOverScreenFollow();
+        UpdateScore();
     }
 
     private void MakeGameOverScreenFollow()
@@ -34,6 +44,7 @@ public class GameManager : MonoBehaviour
         else
         {
             gameOverScreen.SetActive(true);
+            ui.SetActive(false);
         }
     }
 
@@ -61,5 +72,15 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene("Game Scene");
+    }
+    
+    public void UpdateScore()
+    {
+        if (PlayerController.isAlive)
+        {
+            score = ((int)cameraPos.transform.position.y - startCameraPosY) * 33;
+            scoreText.text = "Score: " + score;
+            deadScoreText.text = "Your score is " + score;
+        }
     }
 }
