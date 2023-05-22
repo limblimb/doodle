@@ -56,7 +56,6 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Dead Zone"))
         {
             isAlive = false;
-            Debug.Log("ъ слеп");
         }
     }
 

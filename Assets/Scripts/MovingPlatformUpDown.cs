@@ -7,19 +7,15 @@ public class MovingPlatformUpDown : MonoBehaviour
     public float speed = 5f;
     public float distance = 2f;
 
-    private Vector3 initialPosition;
     private float bottomBoundary; 
     private float upBoundary;
     private bool movingUp = true; 
 
     void Start()
     {
-        initialPosition = transform.position;
-
         // Определение границ экрана
         bottomBoundary = transform.position.y - distance;
         upBoundary = transform.position.y + distance;
-        Debug.Log(bottomBoundary + " " + upBoundary);
     }
 
     void Update()

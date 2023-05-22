@@ -21,12 +21,12 @@ public class ScreenWrap : MonoBehaviour
         // Проверяем, вышел ли персонаж за пределы экрана
         if (currentPosition.x > screenWidth / 2)
         {
-            // Перемещаем персонаж на противоположную сторону экрана
+            // Перемещаем персонажа на противоположную сторону экрана
             transform.position = new Vector3(-screenWidth / 2, currentPosition.y, currentPosition.z);
         }
         else if (currentPosition.x < -screenWidth / 2)
         {
-            // Перемещаем персонаж на противоположную сторону экрана
+            // Перемещаем персонажа на противоположную сторону экрана
             transform.position = new Vector3(screenWidth / 2, currentPosition.y, currentPosition.z);
         }
     }
