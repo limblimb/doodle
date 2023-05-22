@@ -4,30 +4,42 @@ using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour
 {
-    bool moveSwitcher;
-    float xRange;
-    
-    // Update is called once per frame
+    public float speed = 5f; // Скорость перемещения платформы
+
+    private Vector3 initialPosition;
+    private float leftBoundary; // Левая граница экрана
+    private float rightBoundary; // Правая граница экрана
+    private bool movingRight = true; // Флаг, указывающий направление движения платформы
+
+    void Start()
+    {
+        initialPosition = transform.position;
+
+        // Определение границ экрана
+        leftBoundary = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0)).x;
+        rightBoundary = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, 0, 0)).x;
+    }
+
     void Update()
     {
-        if (transform.position.x < xRange && !moveSwitcher)
+        // Перемещение платформы влево или вправо
+        if (movingRight)
         {
-            transform.Translate(new Vector3(1, 0, 0));
-            if (transform.position.x >=4)
-            {
-                moveSwitcher = true;
-            }
+            transform.Translate(Vector3.right * speed * Time.deltaTime);
         }
-        if (transform.position.x > -xRange && moveSwitcher)
+        else
         {
-            transform.Translate(new Vector3(1, 0, 0));
-            if (transform.position.x <= -4)
-            {
-                moveSwitcher = false;
-            }
+            transform.Translate(Vector3.left * speed * Time.deltaTime);
         }
-        
-        
-        
+
+        // Проверка границ и изменение направления движения
+        if (transform.position.x >= rightBoundary)
+        {
+            movingRight = false;
+        }
+        else if (transform.position.x <= leftBoundary)
+        {
+            movingRight = true;
+        }
     }
 }
