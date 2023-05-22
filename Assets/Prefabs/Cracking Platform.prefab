@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 418460111548998206}
   - component: {fileID: 3178808368688933623}
   - component: {fileID: -8035754982559896512}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cracking Platform
   m_TagString: Cracking Platform
   m_Icon: {fileID: 0}

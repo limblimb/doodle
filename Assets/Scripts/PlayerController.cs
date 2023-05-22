@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     void Move(float horizontalInput)
     {
         Vector2 moveVel = player.velocity;
-        moveVel.x = horizontalInput * moveSpeed * Time.deltaTime;
+        moveVel.x = horizontalInput * moveSpeed * Time.fixedDeltaTime;
         player.velocity = moveVel;
     }
 
@@ -37,15 +37,20 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Platform") && player.velocity.y <= 1)
-        {
-            Jump();
-        }
         if (collision.gameObject.CompareTag("Cracking Platform") && player.velocity.y <= 0.5f)
         {
             platformPooler.ReturnPlatformToPool(collision.gameObject);
             platformPooler.MakeAnotherOne();
         }
+        if (collision.gameObject.CompareTag("Platform") && player.velocity.y <= 0.5f)
+        {
+            Jump();
+        }
+        if (collision.gameObject.CompareTag("Dead Zone"))
+        {
+            
+        }
+        
     }
 
     private void Jump()
